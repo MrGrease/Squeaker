@@ -10,7 +10,9 @@
   "author": "M.Emre Yorulmaz",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "mongoose": "^5.9.9"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",
