@@ -4,9 +4,9 @@ const squeakSchema = new mongoose.Schema(
   {
     content: {
       type: String,
-      required: true,
+      //required: true,
       validate(value) {
-        if (value.length <= 200) {
+        if (value.length >= 200) {
           throw new Error('Squeak too long!');
         }
       },
@@ -16,7 +16,7 @@ const squeakSchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
+      //required: true,
       ref: 'User',
     },
   },
