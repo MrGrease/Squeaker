@@ -42,10 +42,10 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.virtual('tasks', {
-  ref: 'Task',
+userSchema.virtual('squeaks', {
+  ref: 'Squeak',
   localField: '_id',
-  foreignField: 'Owner',
+  foreignField: 'owner',
 });
 
 const User = mongoose.model('User', userSchema);

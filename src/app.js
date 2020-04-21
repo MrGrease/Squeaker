@@ -2,8 +2,9 @@ const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
 require('./db/db');
-const Squeak = require('./models/squeak');
+
 const squeakRouter = require('./routers/squeak');
+const userRouter = require('./routers/user');
 
 //Define paths
 const publicDirectoryPath = path.join(__dirname, '../public');
@@ -19,6 +20,7 @@ hbs.registerPartials(partialsPath);
 
 app.use(express.json());
 app.use(squeakRouter);
+app.use(userRouter);
 
 //Static directory path
 app.use(express.static(publicDirectoryPath));
