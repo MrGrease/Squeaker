@@ -39,7 +39,11 @@ const userSchema = new mongoose.Schema(
       type: Buffer,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    //This is here to make sure the virtuals are also sent along when a get request is made for the profile
+    toJSON: { virtuals: true },
+  }
 );
 
 userSchema.virtual('squeaks', {

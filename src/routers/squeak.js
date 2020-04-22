@@ -37,6 +37,7 @@ router.get('/:handle/status/:id', async (req, res) => {
 router.delete('/:handle/status/:id', async (req, res) => {
   res.status(404);
 });
+
 router.get('/:handle/status', async (req, res) => {
   try {
     //Get owner from squeak
@@ -54,4 +55,5 @@ router.get('/:handle/status', async (req, res) => {
     res.status(404).send();
   }
 });
+
 module.exports = router;
