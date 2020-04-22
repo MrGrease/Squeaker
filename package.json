@@ -10,9 +10,13 @@
   "author": "M.Emre Yorulmaz",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "hbs": "^4.1.1",
-    "mongoose": "^5.9.9"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.9",
+    "validator": "^13.0.0"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0",

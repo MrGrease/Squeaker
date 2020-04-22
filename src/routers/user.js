@@ -38,9 +38,47 @@ router.get('/:id', async (req, res) => {
 });
 //Update profile
 router.patch('/:id', async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = [
+    'name',
+    'handle',
+    'email',
+    'bio',
+    'location',
+    'website',
+    'birthdate',
+    'profilePicture',
+    'headerPicture',
+    'password',
+  ];
+  const isValidOperation = updates.every((update) => {
+    allowedUpdates.includes(update);
+  });
+
+  if (!isValidOperation) {
+    return res.status(400).send({ error: 'Invalid Updates!' });
+  }
   try {
-  } catch (e) {}
+    updates.forEach((update) => (req.user[update] = req.body[update]));
+
+    await req.user.save();
+
+    res.send(req.user);
+  } catch (e) {
+    res.status(400).send(e);
+  }
 });
 //Delete profile
-router.delete('/:id');
+router.delete('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    //remove is called because the pre middleware that cascades all squeaks is assigned to user
+    user.remove();
+    res.status(202).send();
+    //must also recursively delete tweets
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+  }
+});
 module.exports = router;
