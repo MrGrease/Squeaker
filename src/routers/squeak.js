@@ -2,13 +2,13 @@ const express = require('express');
 const Squeak = require('../models/squeak');
 const User = require('../models/user');
 const router = new express.Router();
-
+const auth = require('../middleware/auth');
 ///Create a squeak
-router.post('/home', async (req, res) => {
+router.post('/home', auth, async (req, res) => {
   console.log(req.body);
   const squeak = new Squeak({
     content: req.body.content,
-    owner: req.body.owner,
+    owner: req.user._id,
   });
 
   try {
