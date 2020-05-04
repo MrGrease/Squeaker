@@ -23,10 +23,11 @@ router.post('/home', auth, async (req, res) => {
 router.get('/:handle/status/:id', async (req, res) => {
   try {
     const squeak = await Squeak.find({
-      id: req.params.id,
+      _id: req.params.id,
       owner: req.params.handle,
     });
     console.log(squeak);
+    res.status(200).send(squeak);
   } catch (e) {
     res.status(404).send();
   }
