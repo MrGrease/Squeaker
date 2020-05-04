@@ -93,7 +93,7 @@ userSchema.statics.findByCredentials = async (email, password) => {
 
 userSchema.methods.toJSON = function () {
   const user = this;
-  const userObject = user.toObject();
+  const userObject = user.toObject({ virtuals: true }); //set virtuals to true so that squeaks are included
 
   delete userObject.password;
   delete userObject.tokens;
@@ -101,6 +101,7 @@ userSchema.methods.toJSON = function () {
 
   return userObject;
 };
+
 //accessible on instances
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
