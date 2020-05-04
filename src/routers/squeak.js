@@ -36,9 +36,25 @@ router.get('/:handle/status/:id', async (req, res) => {
 ///Update a squeak - NOT ALLOWED TO CHANGE CONTENT
 ///Delete a squeak
 router.delete('/:handle/status/:id', auth, async (req, res) => {
-  res.status(404);
-});
+  try {
+    const squeak = await Squeak.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user._id,
+    });
 
+    if (!squeak) {
+      return res.status(404).send();
+    } else {
+      console.log(squeak);
+    }
+
+    res.send(squeak);
+  } catch (e) {
+    console.log(e);
+    res.status(500).send();
+  }
+});
+/*
 router.get('/:handle/status', auth, async (req, res) => {
   try {
     //Get owner from squeak
@@ -56,5 +72,5 @@ router.get('/:handle/status', auth, async (req, res) => {
     res.status(404).send();
   }
 });
-
+*/
 module.exports = router;
