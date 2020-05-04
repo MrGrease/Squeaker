@@ -68,14 +68,14 @@ const userSchema = new mongoose.Schema(
     ],
     followers: [
       {
-        follower: {
+        _id: {
           type: mongoose.Schema.Types.ObjectId,
         },
       },
     ],
     following: [
       {
-        user: {
+        _id: {
           type: mongoose.Schema.Types.ObjectId,
         },
       },
