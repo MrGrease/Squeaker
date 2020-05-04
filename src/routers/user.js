@@ -59,20 +59,29 @@ router.post('/:id/follow', auth, async (req, res) => {
   try {
     const userToFollow = req.user;
     const userToBeFollowed = await User.findById(req.params.id);
+    console.log(userToBeFollowed.name + ' and ' + userToFollow.name);
+    console.log(userToBeFollowed.followers + ' and ' + userToFollow.following);
 
     //is this person trying to follow his or her own profile?
     if (req.user.id == req.params.id) {
       return res.status(400).send({ error: 'You cant follow yourself!' });
     }
+    //
+    var alreadyfollowed = false;
+    var alreadyfollowing = false;
+    for (index = 0; index < userToBeFollowed.followers.length; index++) {
+      if (userToBeFollowed.followers[index]._id == userToFollow.id) {
+        alreadyfollowed = true;
+      }
+    }
+    for (index = 0; index < userToFollow.following.length; index++) {
+      if (userToFollow.following[index]._id == userToBeFollowed.id) {
+        alreadyfollowing = true;
+      }
+    }
+    //
     //check if this relationship is already established
-    if (
-      userToBeFollowed.followers.some(
-        (follower) => (follower._id = userToFollow.id)
-      ) ||
-      userToFollow.following.some(
-        (follower) => (follower._id = userToBeFollowed.id)
-      )
-    ) {
+    if (alreadyfollowed || alreadyfollowing) {
       console.log('Already exists');
       //filter out the current relationship
 
@@ -93,11 +102,12 @@ router.post('/:id/follow', auth, async (req, res) => {
       userToFollow.following.push({ _id: userToBeFollowed.id });
     }
 
-    console.log(userToBeFollowed.followers);
+    console.log(userToBeFollowed.followers + ' and ' + userToFollow.following);
     await userToBeFollowed.save();
     await userToFollow.save();
     res.status(200).send();
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
