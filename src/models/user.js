@@ -66,6 +66,20 @@ const userSchema = new mongoose.Schema(
         },
       },
     ],
+    followers: [
+      {
+        follower: {
+          type: mongoose.Schema.Types.ObjectId,
+        },
+      },
+    ],
+    following: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
@@ -113,12 +127,13 @@ userSchema.methods.generateAuthToken = async function () {
 
   return token;
 };
-//set up a virtual relationship between the squeaks and their ownerss
+//set up a virtual relationship between the squeaks and their owners
 userSchema.virtual('squeaks', {
   ref: 'Squeak',
   localField: '_id',
   foreignField: 'owner',
 });
+
 //delete all user squeaks when user is removed
 userSchema.pre('remove', async function (next) {
   const user = this;
