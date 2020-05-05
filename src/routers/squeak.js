@@ -54,7 +54,6 @@ router.delete('/:handle/status/:id', auth, async (req, res) => {
     res.status(500).send();
   }
 });
-
 //like a post
 router.post('/:handle/status/:id/like', auth, async (req, res) => {
   try {
@@ -98,6 +97,27 @@ router.post('/:handle/status/:id/resqueak', auth, async (req, res) => {
     });
 
     await squeakToBeResqueaked.save();
+    res.status(200).send();
+  } catch (e) {
+    console.log(e);
+    res.status(400).send(e);
+  }
+});
+//Comment on a post
+router.post('/:handle/status/:id/comment', auth, async (req, res) => {
+  try {
+    const userToComment = req.user;
+    const squeakToBeComment = await Squeak.findById(req.params.id);
+
+    const comment = new Squeak({
+      content: req.body.content,
+      owner: req.user._id,
+    });
+
+    console.log('Commenting!');
+    squeakToBeComment.comments.push(comment);
+
+    await squeakToBeComment.save();
     res.status(200).send();
   } catch (e) {
     console.log(e);

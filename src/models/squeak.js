@@ -31,6 +31,7 @@ const squeakSchema = new mongoose.Schema(
         ref: 'User',
       },
     ],
+    comments: [this],
   },
   { timestamps: true }
 );
