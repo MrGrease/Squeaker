@@ -25,6 +25,12 @@ const squeakSchema = new mongoose.Schema(
         ref: 'User',
       },
     ],
+    resqueaks: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true }
 );

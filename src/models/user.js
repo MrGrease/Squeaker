@@ -139,7 +139,12 @@ userSchema.virtual('likes', {
   localField: '_id',
   foreignField: 'likes',
 });
-
+//set up a virtual relationship between the squeaks and the users who resqueaked them
+userSchema.virtual('resqueaks', {
+  ref: 'Squeak',
+  localField: '_id',
+  foreignField: 'resqueaks',
+});
 //delete all user squeaks when user is removed
 userSchema.pre('remove', async function (next) {
   const user = this;
