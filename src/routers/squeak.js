@@ -54,23 +54,37 @@ router.delete('/:handle/status/:id', auth, async (req, res) => {
     res.status(500).send();
   }
 });
-/*
-router.get('/:handle/status', auth, async (req, res) => {
-  try {
-    //Get owner from squeak
-    // const squeak = await Squeak.findById('5e9f201ebe511235e8e71644');
-    // await squeak.populate('owner').execPopulate();
-    // console.log(squeak.owner);
-    //Get squeaks from owner
-    const user = await User.find('5e9f12a8d74900242440bcbd');
-    await user.populate('squeaks').execPopulate();
-    console.log(user.squeaks);
 
+//contribute to a squeak with comments likes or etc
+router.post('/:handle/status/:id/like', auth, async (req, res) => {
+  try {
+    const userToLike = req.user;
+    const squeakToBeLiked = await Squeak.findById(req.params.id);
+
+    //is this post already liked by the user?
+    var alreadyLiked = false;
+    for (index = 0; index < squeakToBeLiked.likes.length; index++) {
+      if (squeakToBeLiked.likes[index]._id == userToLike.id) {
+        alreadyLiked = true;
+      }
+    }
+
+    if (alreadyLiked) {
+      console.log('Already liked');
+
+      squeakToBeLiked.likes = squeakToBeLiked.likes.filter(function (liker) {
+        return userToLike.id != liker._id;
+      });
+    } else {
+      console.log('Not liked before');
+      squeakToBeLiked.likes.push({ _id: userToLike.id });
+    }
+    await squeakToBeLiked.save();
     res.status(200).send();
   } catch (e) {
     console.log(e);
-    res.status(404).send();
+    res.status(400).send(e);
   }
 });
-*/
+
 module.exports = router;
