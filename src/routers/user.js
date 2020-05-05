@@ -115,7 +115,7 @@ router.post('/:id/follow', auth, async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    await user.populate('squeaks').execPopulate();
+    await user.populate('squeaks').populate('comments').execPopulate();
     res.status(200).send(user);
   } catch (e) {
     console.log(e);
@@ -138,6 +138,17 @@ router.get('/:id/resqueaks', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('resqueaks').execPopulate();
+    res.status(200).send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(404).send();
+  }
+});
+//Get comments
+router.get('/:id/comments', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    await user.populate('comments').execPopulate();
     res.status(200).send(user);
   } catch (e) {
     console.log(e);
