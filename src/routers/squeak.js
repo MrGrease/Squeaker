@@ -55,7 +55,7 @@ router.delete('/:handle/status/:id', auth, async (req, res) => {
   }
 });
 
-//contribute to a squeak with comments likes or etc
+//like a post
 router.post('/:handle/status/:id/like', auth, async (req, res) => {
   try {
     const userToLike = req.user;
@@ -86,5 +86,22 @@ router.post('/:handle/status/:id/like', auth, async (req, res) => {
     res.status(400).send(e);
   }
 });
+//resqueak a post
+router.post('/:handle/status/:id/resqueak', auth, async (req, res) => {
+  try {
+    const userToResqueak = req.user;
+    const squeakToBeResqueaked = await Squeak.findById(req.params.id);
 
+    console.log('resqueaking!');
+    squeakToBeResqueaked.resqueaks.push({
+      _id: userToResqueak.id,
+    });
+
+    await squeakToBeResqueaked.save();
+    res.status(200).send();
+  } catch (e) {
+    console.log(e);
+    res.status(400).send(e);
+  }
+});
 module.exports = router;
