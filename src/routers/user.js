@@ -122,6 +122,17 @@ router.get('/:id', async (req, res) => {
     res.status(404).send();
   }
 });
+//Get likes
+router.get('/:id/likes', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    await user.populate('likes').execPopulate();
+    res.status(200).send(user);
+  } catch (e) {
+    console.log(e);
+    res.status(404).send();
+  }
+});
 //Update profile
 router.patch('/', auth, async (req, res) => {
   const updates = Object.keys(req.body);
