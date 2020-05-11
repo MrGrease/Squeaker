@@ -5,14 +5,107 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Squeaker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
-    <h1>Welcome to Squeaker!</h1>
-    <form>
-        <textarea type="text" /></textarea>
-        <button>Squeak</button>
-    </form>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-3">
+
+                <h1><img src="/icons/rat.svg" width="40em" height="40em"> Squeaker</h1>
+                <button class="btn btn-outline-dark btn-lg my-2" type="button"><img src="/icons/hashtag.svg"
+                        width="20em" height="20em">
+                    Explore</button>
+            </div>
+
+            <div class="col-sm-6">
+
+                <form>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text my-2"><img src="/icons/search.svg" width="20em" height="20em">
+                            </div>
+                        </div>
+                        <input type="text" class="form-control my-2" id="search" placeholder="Search Squeaker">
+                    </div>
+                </form>
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Explore</h4>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
+                        alt="" class="img-fluid">
+                    <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+                        <h4 class="card-title">Events from around the world</h4>
+                    </div>
+                </div>
+
+
+
+                <div class="list-group mt-1">
+                    <li class="list-group-item">
+                        <h4>Trends for you</h4>
+                    </li>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div>
+                            <small class="text-secondary">Trending in ...</small>
+                            <h5 class="font-weight-bold">Trend 1</h4>
+                                <p class="text-secondary">x Squeaks</p>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div>
+                            <small class="text-secondary">Trending in ...</small>
+                            <h5 class="font-weight-bold">Trend 2</h4>
+                                <p class="text-secondary">x Squeaks</p>
+                        </div>
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">
+                        <div>
+                            <small class="text-secondary">Trending in ...</small>
+                            <h5 class="font-weight-bold">Trend 3</h4>
+                                <p class="text-secondary">x Squeaks</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="card mt-3">
+                    <img src="https://images.unsplash.com/photo-1585007600263-71228e40c8d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                        alt="https://images.unsplash.com/photo-1585007600338-ec568e187cc1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                        class="img-fluid">
+                    <div class="card-body">
+                        <h5 class="card-title">See what’s happening in the world right now
+                        </h5>
+                        <form>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" class="form-control" id="emial">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <p class="text-center my-auto">Or</p>
+                            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                        </form>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
 </body>
 
 </html>
