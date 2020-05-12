@@ -1,0 +1,22 @@
+.toolbartext {
+  margin-left: 2rem;
+  margin-top: 0.25rem;
+  float: left;
+}
+
+.toolbarlink {
+  margin-top: 1rem;
+  width: auto;
+  height: 3rem;
+  display: block;
+  clear: left;
+  float: left;
+}
+
+.toolbarsvg {
+  float: left;
+}
+
+.toolbartweet {
+  width: 12rem;
+}
