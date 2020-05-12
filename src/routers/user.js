@@ -29,6 +29,10 @@ router.post('/login', async (req, res) => {
     res.status(400).send();
   }
 });
+//Get Login Page
+router.get('/login', async (req, res) => {
+  res.render('login');
+});
 //Logout user
 router.post('/logout', auth, async (req, res) => {
   try {
