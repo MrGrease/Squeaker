@@ -13,10 +13,55 @@
   float: left;
 }
 
+.squeakbar {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
 .toolbarsvg {
   float: left;
 }
 
 .toolbartweet {
   width: 12rem;
+}
+.handle:hover {
+  text-decoration: underline;
+}
+.handle {
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.profilemini {
+  width: 3rem;
+  height: 3rem;
+}
+.squeezewtf {
+  height: 3rem;
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fill {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.thickbottomborder {
+  border-bottom: 10px solid #dee2e6;
+}
+
+.noHover:focus {
+  box-shadow: none;
+}
+textarea {
+  resize: none;
+}
+.twitterfont {
+  font-size: 19px;
 }
