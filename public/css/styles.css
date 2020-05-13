@@ -65,3 +65,7 @@ textarea {
 .twitterfont {
   font-size: 19px;
 }
+.fluidbutton {
+  width: auto;
+  height: auto;
+}
