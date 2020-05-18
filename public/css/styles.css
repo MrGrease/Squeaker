@@ -69,3 +69,6 @@ textarea {
   width: auto;
   height: auto;
 }
+.searchbar {
+  width: 45rem;
+}
