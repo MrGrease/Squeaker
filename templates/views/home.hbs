@@ -14,18 +14,23 @@
     <div class="container">
         <div class="row">
             <div class="col-2 col-lg-3">
-                {{>toolbar}}
-                {{>user}}
+                <div class="sticky-top">
+                    {{>toolbar}}
+                    {{>user}}
+                    {{>userpopover}}
+                </div>
             </div>
             <div class="col-10 col-md-9 col-lg-5 border fill">
                 {{>squeak}}
                 {{>wall}}
             </div>
             <div class="col-lg-4 d-lg-block d-none">
-                {{>search}}
-                {{>trends}}
-                {{>whotofollow}}
-                {{>copyright}}
+                <div class="sticky-top">
+                    {{>search}}
+                    {{>trends}}
+                    {{>whotofollow}}
+                    {{>copyright}}
+                </div>
             </div>
         </div>
     </div>
