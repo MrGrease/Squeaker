@@ -127,10 +127,13 @@ router.get('/:id', async (req, res) => {
   }
 });
 //Get Home
-router.get('/', auth, async (req, res) => {
-  //res.redirect('/' + req.user._id);
-  res.render('home');
-});
+router.get(
+  '/',
+  /*auth,*/ async (req, res) => {
+    //res.redirect('/' + req.user._id);
+    res.render('home');
+  }
+);
 //Get likes
 router.get('/:id/likes', async (req, res) => {
   try {

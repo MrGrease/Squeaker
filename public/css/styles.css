@@ -72,3 +72,8 @@ textarea {
 .searchbar {
   width: 45rem;
 }
+a.link,
+a.link:hover {
+  color: inherit;
+  text-decoration: none;
+}
