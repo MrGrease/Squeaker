@@ -38,6 +38,10 @@
   width: 3rem;
   height: 3rem;
 }
+.profilxs {
+  width: 40px;
+  height: 40px;
+}
 .squeezewtf {
   height: 3rem;
 }
@@ -80,4 +84,9 @@ a.link:hover {
 
 .currentuser {
   margin-top: 50em;
+}
+.miniuparrow {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 2rem;
 }
