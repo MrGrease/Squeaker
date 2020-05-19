@@ -123,3 +123,8 @@ a.link:hover {
 .hovershadow:hover {
   background-color: gray;
 }
+
+.headerimage {
+  max-height: 10rem;
+  width: 100%;
+}
