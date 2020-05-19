@@ -138,3 +138,8 @@ a.link:hover {
   margin-top: 1rem;
   margin-left: 4vw;
 }
+.mini-media {
+  width: auto;
+  height: auto;
+  padding: 1px;
+}
