@@ -131,7 +131,7 @@ router.get(
   '/',
   /*auth,*/ async (req, res) => {
     //res.redirect('/' + req.user._id);
-    res.render('profile');
+    res.render('explorepage');
   }
 );
 //Get likes
