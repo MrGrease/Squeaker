@@ -146,3 +146,7 @@ a.link:hover {
   height: auto;
   padding: 1px;
 }
+.message-display {
+  height: 84vh;
+  overflow-y: scroll;
+}
