@@ -138,6 +138,9 @@ a.link:hover {
   margin-top: 1rem;
   margin-left: 4vw;
 }
+.dmbutton {
+  margin-top: 1rem;
+}
 .mini-media {
   width: auto;
   height: auto;
