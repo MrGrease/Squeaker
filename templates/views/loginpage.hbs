@@ -16,12 +16,13 @@
             <img src="/icons/rat.svg" class="mx-auto d-block mb-3" width="40em" height="40em">
             <h3 class="text-center my-2">Login To Squeaker</h3>
             <p id="warning"></p>
-            <form>
+            <form action="/login" method="POST">
                 <div class="form-group">
-                    <input type="email" class="form-control w-50 mx-auto" id="email" placeholder="E-mail">
+                    <input type="email" class="form-control w-50 mx-auto" id="email" name="email" placeholder="E-mail">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control w-50 mx-auto" id="password" placeholder="Password">
+                    <input type="password" class="form-control w-50 mx-auto" id="password" name="password"
+                        placeholder="Password">
                 </div>
                 <button type="submit" class="btn btn-primary w-50">Login</button>
             </form>

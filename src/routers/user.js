@@ -2,8 +2,15 @@ const express = require('express');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
+const bodyParser = require('body-parser');
+//Set up body parser
+// create application/json parser
+const jsonParser = bodyParser.json();
 
-//Create user
+// create application/x-www-form-urlencoded parser
+const urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+//Routes
 router.post('/register', async (req, res) => {
   const user = new User(req.body);
   try {
@@ -16,22 +23,23 @@ router.post('/register', async (req, res) => {
   }
 });
 //Login user
-router.post('/login', async (req, res) => {
+router.post('/login', urlencodedParser, async (req, res) => {
   try {
+    console.log(req.body.email);
     const user = await User.findByCredentials(
       req.body.email,
       req.body.password
     );
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    res.redirect('/');
   } catch (e) {
     console.log(e);
-    res.status(400).send();
+    res.redirect('login');
   }
 });
 //Get Login Page
 router.get('/login', async (req, res) => {
-  res.render('login');
+  res.render('loginpage');
 });
 //Logout user
 router.post('/logout', auth, async (req, res) => {
@@ -127,9 +135,12 @@ router.get('/:id', async (req, res) => {
   }
 });
 //Get Home
-router.get('/', auth, async (req, res) => {
-  res.redirect('/' + req.user._id);
-});
+router.get(
+  '/',
+  /*auth,*/ async (req, res) => {
+    res.render('homepage');
+  }
+);
 //Get likes
 router.get('/:id/likes', async (req, res) => {
   try {
