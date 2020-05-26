@@ -127,13 +127,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 //Get Home
-router.get(
-  '/',
-  /*auth,*/ async (req, res) => {
-    //res.redirect('/' + req.user._id);
-    res.render('Bookmarkspage');
-  }
-);
+router.get('/', auth, async (req, res) => {
+  res.redirect('/' + req.user._id);
+});
 //Get likes
 router.get('/:id/likes', async (req, res) => {
   try {
