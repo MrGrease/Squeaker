@@ -37,8 +37,12 @@ const userSchema = new mongoose.Schema(
     },
     website: {
       type: String,
+      default: 'N/A',
     },
-    birthdate: {},
+    birthdate: {
+      type: String,
+      default: 'N/A',
+    },
     profilePicture: {
       type: Buffer,
     },
