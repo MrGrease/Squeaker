@@ -2,28 +2,25 @@ const express = require('express');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
-const bodyParser = require('body-parser');
-//Set up body parser
-// create application/json parser
-const jsonParser = bodyParser.json();
-
-// create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 //Routes
+router.get('/register', async (req, res) => {
+  res.render('registerpage');
+});
 router.post('/register', async (req, res) => {
   const user = new User(req.body);
   try {
     await user.save();
 
     const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+    res.cookie('auth_token', token, {});
+    res.redirect('/');
   } catch (e) {
     res.status(400).send(e);
   }
 });
 //Login user
-router.post('/login', urlencodedParser, async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     console.log(req.body.email);
     const user = await User.findByCredentials(
@@ -31,6 +28,7 @@ router.post('/login', urlencodedParser, async (req, res) => {
       req.body.password
     );
     const token = await user.generateAuthToken();
+    res.cookie('auth_token', token);
     res.redirect('/');
   } catch (e) {
     console.log(e);
@@ -135,12 +133,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 //Get Home
-router.get(
-  '/',
-  /*auth,*/ async (req, res) => {
-    res.render('homepage');
-  }
-);
+router.get('/', auth, async (req, res) => {
+  res.render('homepage');
+});
 //Get likes
 router.get('/:id/likes', async (req, res) => {
   try {
