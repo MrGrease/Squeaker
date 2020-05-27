@@ -19,7 +19,7 @@ const auth = async (req, res, next) => {
 
     req.token = token;
     req.user = user;
-    req.userJson = user.toJSON();
+    req.user.CA = req.user.createdAt.toJSON().substring(0, 4);
 
     next();
   } catch (e) {
