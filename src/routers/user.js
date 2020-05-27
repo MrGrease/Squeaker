@@ -13,7 +13,11 @@ router.post('/register', async (req, res) => {
     await user.save();
 
     const token = await user.generateAuthToken();
-    res.cookie('auth_token', token, {});
+    res.cookie('auth_token', token, {
+      maxAge: 36000,
+      httpOnly: false,
+      secure: process.env.SECURE,
+    });
     res.redirect('/');
   } catch (e) {
     res.status(400).send(e);
@@ -28,7 +32,11 @@ router.post('/login', async (req, res) => {
       req.body.password
     );
     const token = await user.generateAuthToken();
-    res.cookie('auth_token', token);
+    res.cookie('auth_token', token, {
+      maxAge: 36000,
+      httpOnly: false,
+      secure: process.env.SECURE,
+    });
     res.redirect('/');
   } catch (e) {
     console.log(e);
@@ -122,11 +130,11 @@ router.post('/:id/follow', auth, async (req, res) => {
   }
 });
 //Get profile
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('squeaks').populate('comments').execPopulate();
-    res.status(200).send(user);
+    res.render('myprofilepage', { user: req.user });
   } catch (e) {
     console.log(e);
     res.status(404).send();
@@ -134,7 +142,9 @@ router.get('/:id', async (req, res) => {
 });
 //Get Home
 router.get('/', auth, async (req, res) => {
-  res.render('homepage');
+  res.render('homepage', {
+    user: req.user,
+  });
 });
 //Get likes
 router.get('/:id/likes', async (req, res) => {

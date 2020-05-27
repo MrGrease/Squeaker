@@ -6,8 +6,8 @@
                     id="exampleFormControlFile1">
             </div>
             <div class="col">
-                <h5 class=""><strong>User</strong></h5>
-                <span class="text-secondary">X Squeaks</span>
+                <h5 class=""><strong>{{user.handle}}</strong></h5>
+                <span class="text-secondary">{{user.squeaks.length}} Squeaks</span>
 
             </div>
         </div>
@@ -23,8 +23,8 @@
     <img class="rounded-circle profile-main" src="https://source.unsplash.com/random/500x500" alt="">
     <div class="row">
         <div class="col-2 ml-2 mt-1">
-            <h5 class="d-inline"><strong>Dudemcdude</strong></h5>
-            <p class="text-secondary">@someone</p>
+            <h5 class="d-inline"><strong>{{user.name}}</strong></h5>
+            <p class="text-secondary">@{{user.handle}}</p>
         </div>
         <div class="col-5">
 
@@ -35,29 +35,30 @@
     </div>
     <div class="row">
         <div class="container mx-2">
-            <p class="content">This is my biographyThis is my biographyThis is my biographyThis is my biography</p>
+            <p class="content">{{user.bio}}</p>
         </div>
     </div>
     <div class="row">
         <div class="d-flex justify-content-between container">
             <div class="col">
-                <img src="/icons/link.svg" alt="" class="squeakbar d-inline"><a href="#" class="ml-2">somelink</a>
+                <img src="/icons/link.svg" alt="" class="squeakbar d-inline"><a href="#"
+                    class="ml-2">{{user.website}}</a>
             </div>
             <div class="col">
                 <img src="/icons/balloon.svg" alt="" class="squeakbar d-inline">
-                <p class="text-secondary d-inline">Born June 22, 1995</p>
+                <p class="text-secondary d-inline">{{user.birthday}}</p>
             </div>
             <div class="col">
                 <img src="/icons/calendar.svg" alt="" class="squeakbar d-inline">
-                <p class="text-secondary d-inline">joined June 22, 1995</p>
+                <p class="text-secondary d-inline">{{user.createdAt}}</p>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="container mx-3">
-            <p class="d-inline"><Strong>24</Strong></p>
+            <p class="d-inline"><Strong>{{user.following.length}}</Strong></p>
             <p class="d-inline text-secondary"> Following</p>
-            <p class="d-inline ml-3"><Strong>200</Strong></p>
+            <p class="d-inline ml-3"><Strong>{{user.followers.length}}</Strong></p>
             <p class="d-inline text-secondary"> Followers</p>
         </div>
     </div>
