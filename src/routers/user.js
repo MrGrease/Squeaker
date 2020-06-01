@@ -222,8 +222,11 @@ router.get('/:id/comments', async (req, res) => {
   }
 });
 //Update profile
-router.patch('/:id/edit', auth, async (req, res) => {
+router.post('/:id/edit', auth, async (req, res) => {
+  console.log(req.body);
+  const user = await User.findById(req.params.id);
   const updates = Object.keys(req.body);
+  console.log(updates + 'are our updates');
   const allowedUpdates = [
     'name',
     'handle',
@@ -239,15 +242,15 @@ router.patch('/:id/edit', auth, async (req, res) => {
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
-
   if (!isValidOperation) {
     return res.status(400).send({ error: 'Invalid Updates!' });
   }
   try {
-    updates.forEach((update) => (req.user[update] = req.body[update]));
-    await req.user.save();
-    res.send(req.user);
+    updates.forEach((update) => (user[update] = req.body[update]));
+    await user.save();
+    res.send(user);
   } catch (e) {
+    console.log(e);
     res.status(400).send(e);
   }
 });
