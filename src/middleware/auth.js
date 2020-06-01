@@ -20,6 +20,8 @@ const auth = async (req, res, next) => {
     req.token = token;
     req.user = user;
     req.user.CA = req.user.createdAt.toJSON().substring(0, 4);
+    //convert image to base64 string so it can be decoded by the html image tag
+    req.user.avatar = req.user.avatar.toString('base64');
 
     next();
   } catch (e) {

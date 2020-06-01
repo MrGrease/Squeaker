@@ -2,16 +2,31 @@ const express = require('express');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
+const multer = require('multer');
+
+const upload = multer({
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error('please upload an image'));
+    }
+
+    cb(undefined, true);
+  },
+});
 
 //Routes
 router.get('/register', async (req, res) => {
   res.render('registerpage');
 });
-router.post('/register', async (req, res) => {
+router.post('/register', upload.single('avatar'), async (req, res) => {
+  console.log('the file is' + req.file);
   const user = new User(req.body);
+  user.avatar = req.file.buffer;
   try {
     await user.save();
-
     const token = await user.generateAuthToken();
     res.cookie('auth_token', token, {
       maxAge: 36000,
@@ -226,4 +241,5 @@ router.delete('/', auth, async (req, res) => {
     res.status(500).send();
   }
 });
+
 module.exports = router;

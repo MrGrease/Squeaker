@@ -18,7 +18,7 @@
             <h3 class="text-center my-2">Become a Squeaker</h3>
             <p id="warning"></p>
 
-            <form method="POST" action="/register">
+            <form method="POST" action="/register" enctype="multipart/form-data">
                 <label for="handle">Handle</label>
                 <input type="text" name="handle" id="handle" class="form-control w-50 mx-auto" required />
                 <label for="name">Name</label>
@@ -31,6 +31,8 @@
                 <input type="email" name="email" id="email" class="form-control w-50 mx-auto" required />
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="form-control w-50 mx-auto" required />
+                <label for="avatar">Avatar</label>
+                <input type="file" name="avatar" id="avatar" class="w-50 mx-auto form-control-file" />
                 <button class="btn btn-dark mt-3" type="submit">Register</button>
             </form>
         </div>
