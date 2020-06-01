@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
     res.cookie('auth_token', token, {
       maxAge: 36000,
       httpOnly: false,
-      secure: process.env.SECURE,
+      secure: false,
     });
     res.redirect('/');
   } catch (e) {
@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
     res.cookie('auth_token', token, {
       maxAge: 36000,
       httpOnly: false,
-      secure: process.env.SECURE,
+      secure: false,
     });
     res.redirect('/');
   } catch (e) {
