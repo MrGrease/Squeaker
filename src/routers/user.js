@@ -3,7 +3,7 @@ const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
 const multer = require('multer');
-
+const sharp = require('sharp');
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -21,23 +21,40 @@ const upload = multer({
 router.get('/register', async (req, res) => {
   res.render('registerpage');
 });
-router.post('/register', upload.single('avatar'), async (req, res) => {
-  console.log('the file is' + req.file);
-  const user = new User(req.body);
-  user.avatar = req.file.buffer;
-  try {
-    await user.save();
-    const token = await user.generateAuthToken();
-    res.cookie('auth_token', token, {
-      maxAge: 36000,
-      httpOnly: false,
-      secure: false,
-    });
-    res.redirect('/');
-  } catch (e) {
-    res.status(400).send(e);
+router.post(
+  '/register',
+  upload.fields([
+    { name: 'avatar', maxCount: 1 },
+    { name: 'header', maxCount: 1 },
+  ]),
+  async (req, res) => {
+    const buffer = await sharp(req.files['avatar'][0]['buffer'])
+      .resize({ width: 400, height: 400 })
+      .png()
+      .toBuffer();
+    req.avatar = buffer;
+    const bufferh = await sharp(req.files['header'][0]['buffer'])
+      .resize({ width: 1500, height: 500 })
+      .png()
+      .toBuffer();
+    req.header = bufferh;
+    const user = new User(req.body);
+    user.avatar = req.avatar;
+    user.header = req.header;
+    try {
+      await user.save();
+      const token = await user.generateAuthToken();
+      res.cookie('auth_token', token, {
+        maxAge: 36000,
+        httpOnly: false,
+        secure: false,
+      });
+      res.redirect('/');
+    } catch (e) {
+      res.status(400).send(e);
+    }
   }
-});
+);
 //Login user
 router.post('/login', async (req, res) => {
   try {

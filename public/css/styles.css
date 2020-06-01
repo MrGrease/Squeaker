@@ -125,8 +125,8 @@ a.link:hover {
 }
 
 .headerimage {
-  max-height: 13rem;
   width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 768px) {

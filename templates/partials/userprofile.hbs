@@ -15,12 +15,14 @@
     <div class="row">
         <div class="">
             <div class="col">
-                <img class="img-fluid headerimage" src="https://source.unsplash.com/random/" alt="">
+                <img class="img-fluid headerimage" src="data:image/png;base64, {{user.header}}"
+                    alt="https://source.unsplash.com/random/">
             </div>
         </div>
     </div>
 
-    <img class="rounded-circle profile-main" src="data:image/png;base64, {{user.avatar}}" alt="">
+    <img class="rounded-circle profile-main" src="data:image/png;base64, {{user.avatar}}"
+        alt="https://source.unsplash.com/random/">
     <div class="row">
         <div class="col-2 ml-2 mt-1">
             <h5 class="d-inline"><strong>{{user.name}}</strong></h5>
