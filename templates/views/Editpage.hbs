@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Squeaker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+
+        <div class="d-flex flex-column justify-content-center row-hl text-center">
+            <img src="/icons/rat.svg" class="mx-auto d-block mb-3" width="40em" height="40em">
+            <h3 class="text-center my-2">Edit your Squeaker</h3>
+            <p id="warning"></p>
+            <form method="PATCH" action="/{{user.id}}/edit" enctype="multipart/form-data">
+                <label for="handle">Handle</label>
+                <input type="text" name="handle" id="handle" class="form-control w-50 mx-auto"
+                    placeholder="{{user.handle}}" />
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control w-50 mx-auto"
+                    placeholder="{{user.name}}" />
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" class="form-control w-50 mx-auto"
+                    placeholder="{{user.location}}" />
+                <label for="bio">Bio</label>
+                <input type="text" name="bio" id="bio" class="form-control w-50 mx-auto" placeholder="{{user.bio}}" />
+                <label for="website">Website</label>
+                <input type="text" name="website" id="website" class="form-control w-50 mx-auto"
+                    placeholder="{{user.website}}" />
+                <label for="birthdate">Date of Birth</label>
+                <input type="text" name="birthdate" id="birthdate" class="form-control w-50 mx-auto"
+                    placeholder="{{user.birthdate}}" />
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control w-50 mx-auto"
+                    placeholder="{{user.email}}" />
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control w-50 mx-auto" />
+                <label for="avatar">Avatar</label>
+                <input type="file" name="avatar" id="avatar" class="w-50 mx-auto form-control-file" />
+                <label for="header">Header</label>
+                <input type="file" name="header" id="header" class="w-50 mx-auto form-control-file" />
+                <button class="btn btn-dark mt-3" type="submit">Update</button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

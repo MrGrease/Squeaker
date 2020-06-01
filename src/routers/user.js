@@ -21,6 +21,7 @@ const upload = multer({
 router.get('/register', async (req, res) => {
   res.render('registerpage');
 });
+
 router.post(
   '/register',
   upload.fields([
@@ -172,6 +173,15 @@ router.get('/:id', auth, async (req, res) => {
     res.status(404).send();
   }
 });
+//Get Edit page
+router.get('/:id/edit', auth, async (req, res) => {
+  try {
+    res.render('Editpage', { user: req.user });
+  } catch (e) {
+    console.log(e);
+    res.status(404).send();
+  }
+});
 //Get Home
 router.get('/', auth, async (req, res) => {
   res.render('homepage', {
@@ -212,7 +222,7 @@ router.get('/:id/comments', async (req, res) => {
   }
 });
 //Update profile
-router.patch('/', auth, async (req, res) => {
+router.patch('/:id/edit', auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = [
     'name',
@@ -222,8 +232,8 @@ router.patch('/', auth, async (req, res) => {
     'location',
     'website',
     'birthdate',
-    'profilePicture',
-    'headerPicture',
+    'avatar',
+    'header',
     'password',
   ];
   const isValidOperation = updates.every((update) =>
@@ -235,9 +245,7 @@ router.patch('/', auth, async (req, res) => {
   }
   try {
     updates.forEach((update) => (req.user[update] = req.body[update]));
-
     await req.user.save();
-
     res.send(req.user);
   } catch (e) {
     res.status(400).send(e);
