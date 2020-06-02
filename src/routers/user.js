@@ -222,38 +222,51 @@ router.get('/:id/comments', async (req, res) => {
   }
 });
 //Update profile
-router.post('/:id/edit', auth, async (req, res) => {
-  console.log(req.body);
-  const user = await User.findById(req.params.id);
-  const updates = Object.keys(req.body);
-  console.log(updates + 'are our updates');
-  const allowedUpdates = [
-    'name',
-    'handle',
-    'email',
-    'bio',
-    'location',
-    'website',
-    'birthdate',
-    'avatar',
-    'header',
-    'password',
-  ];
-  const isValidOperation = updates.every((update) =>
-    allowedUpdates.includes(update)
-  );
-  if (!isValidOperation) {
-    return res.status(400).send({ error: 'Invalid Updates!' });
+//post because patch doesn't work for some reason
+router.post(
+  '/:id/edit',
+  upload.fields([
+    { name: 'avatar', maxCount: 1 },
+    { name: 'header', maxCount: 1 },
+  ]),
+  auth,
+  async (req, res) => {
+    console.log(req.body);
+    const user = await User.findById(req.params.id);
+    const updates = Object.keys(req.body);
+    console.log(updates + 'are our updates');
+    const allowedUpdates = [
+      'name',
+      'handle',
+      'email',
+      'bio',
+      'location',
+      'website',
+      'birthdate',
+      'avatar',
+      'header',
+      'password',
+    ];
+    const isValidOperation = updates.every((update) =>
+      allowedUpdates.includes(update)
+    );
+    if (!isValidOperation) {
+      return res.status(400).send({ error: 'Invalid Updates!' });
+    }
+    try {
+      updates.forEach(function selectiveUpdate(update) {
+        if (req.body[update] != '') {
+          user[update] = req.body[update];
+        }
+      });
+      await user.save();
+      res.redirect('/' + user._id);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send(e);
+    }
   }
-  try {
-    updates.forEach((update) => (user[update] = req.body[update]));
-    await user.save();
-    res.send(user);
-  } catch (e) {
-    console.log(e);
-    res.status(400).send(e);
-  }
-});
+);
 //Delete profile
 router.delete('/', auth, async (req, res) => {
   try {
