@@ -106,7 +106,7 @@ router.post('/logoutAll', auth, async (req, res) => {
   }
 });
 //follow user
-router.post('/:id/follow', auth, async (req, res) => {
+router.post('/user/:id/follow', auth, async (req, res) => {
   try {
     const userToFollow = req.user;
     const userToBeFollowed = await User.findById(req.params.id);
@@ -163,7 +163,7 @@ router.post('/:id/follow', auth, async (req, res) => {
   }
 });
 //Get profile
-router.get('/:id', auth, async (req, res) => {
+router.get('/user/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('squeaks').populate('comments').execPopulate();
@@ -174,7 +174,7 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 //Get Edit page
-router.get('/:id/edit', auth, async (req, res) => {
+router.get('/user/:id/edit', auth, async (req, res) => {
   try {
     res.render('Editpage', { user: req.user });
   } catch (e) {
@@ -189,7 +189,7 @@ router.get('/', auth, async (req, res) => {
   });
 });
 //Get likes
-router.get('/:id/likes', async (req, res) => {
+router.get('/user/:id/likes', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('likes').execPopulate();
@@ -200,7 +200,7 @@ router.get('/:id/likes', async (req, res) => {
   }
 });
 //Get Resqueaks
-router.get('/:id/resqueaks', async (req, res) => {
+router.get('/user/:id/resqueaks', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('resqueaks').execPopulate();
@@ -211,7 +211,7 @@ router.get('/:id/resqueaks', async (req, res) => {
   }
 });
 //Get comments
-router.get('/:id/comments', async (req, res) => {
+router.get('/user/:id/comments', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('comments').execPopulate();
@@ -224,7 +224,7 @@ router.get('/:id/comments', async (req, res) => {
 //Update profile
 //post because patch doesn't work for some reason
 router.post(
-  '/:id/edit',
+  '/user/:id/edit',
   upload.fields([
     { name: 'avatar', maxCount: 1 },
     { name: 'header', maxCount: 1 },
@@ -283,15 +283,12 @@ router.post(
   }
 );
 //Delete profile
-router.delete('/', auth, async (req, res) => {
+router.delete('/deleteprofile', auth, async (req, res) => {
+  console.log('deleteign!');
   try {
-    //const user = await User.findById(req.params.id);
-    //remove is called because the pre middleware that cascades all squeaks is assigned to user
-    //user.remove();
     await req.user.remove();
 
-    res.status(202).send();
-    //must also recursively delete tweets
+    res.status(200).send();
   } catch (e) {
     console.log(e);
     res.status(500).send();
