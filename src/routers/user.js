@@ -231,10 +231,25 @@ router.post(
   ]),
   auth,
   async (req, res) => {
-    console.log(req.body);
     const user = await User.findById(req.params.id);
+    if (req.files['avatar']) {
+      const buffer = await sharp(req.files['avatar'][0]['buffer'])
+        .resize({ width: 400, height: 400 })
+        .png()
+        .toBuffer();
+      req.avatar = buffer;
+      user.avatar = req.avatar;
+    }
+    if (req.files['header']) {
+      const bufferh = await sharp(req.files['header'][0]['buffer'])
+        .resize({ width: 1500, height: 500 })
+        .png()
+        .toBuffer();
+      req.header = bufferh;
+      user.header = req.header;
+    }
+
     const updates = Object.keys(req.body);
-    console.log(updates + 'are our updates');
     const allowedUpdates = [
       'name',
       'handle',
