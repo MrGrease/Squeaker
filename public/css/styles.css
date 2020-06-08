@@ -153,3 +153,6 @@ a.link:hover {
 .user-popover {
   max-height: 70px;
 }
+.pointer {
+  cursor: pointer;
+}

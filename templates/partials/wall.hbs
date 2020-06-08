@@ -1,4 +1,30 @@
-{{>imagesqueak}}
-{{>textsqueak}}
-{{>linksqueak}}
-{{>videosqueak}}
+{{#each user.squeaks}}
+<div class="border-bottom">
+    <div class="form-group">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-10">
+                <small class="text-secondary"></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <img class="img-fluid rounded-circle profilemini ml-3 mt-1"
+                    src="data:image/png;base64, {{../user.avatar}}" alt="">
+            </div>
+            <div class="col-10">
+                <h6 class="d-inline">{{../user.name}}</h6>
+                <p class="d-inline text-secondary">@{{../user.handle}}</p>
+                <p class="d-inline text-secondary">{{this.createdAt}}</p>
+                <p class="content">{{this.content}}</p>
+
+                <div class="mr-3">
+                    <img class=" headerimage" src="data:image/png;base64, {{this.attachment}}" alt="">
+                </div>
+
+            </div>
+        </div>
+        {{>squeakactions}}
+    </div>
+</div>
+{{/each}}

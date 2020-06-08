@@ -167,7 +167,12 @@ router.get('/user/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('squeaks').populate('comments').execPopulate();
-    res.render('myprofilepage', { user: req.user });
+    req.user.squeaks.forEach((squeak) => {
+      if (squeak.type == 1) {
+        squeak.attachment = squeak.attachment.toString('base64');
+      }
+    });
+    res.render('myprofilepage', { user: req.user, squeaks: req.user.squeaks });
   } catch (e) {
     console.log(e);
     res.status(404).send();

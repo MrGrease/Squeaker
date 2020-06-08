@@ -3,17 +3,47 @@ const Squeak = require('../models/squeak');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
-///Create a squeak
-router.post('/home', auth, async (req, res) => {
-  console.log(req.body);
-  const squeak = new Squeak({
-    content: req.body.content,
-    owner: req.user._id,
-  });
+const multer = require('multer');
+const sharp = require('sharp');
+const upload = multer({
+  limits: {
+    fileSize: 1000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error('please upload an image'));
+    }
 
+    cb(undefined, true);
+  },
+});
+///Create a squeak
+router.post('/home', upload.single('attachment'), auth, async (req, res) => {
+  console.log(req.file);
   try {
+    if (!req.file) {
+      console.log('creating a text squeak');
+      var squeak = new Squeak({
+        content: req.body.content,
+        owner: req.user._id,
+        type: 0,
+      });
+    } else {
+      const buffer = await sharp(req.file.buffer)
+        .png()
+        .resize({ width: 400, height: 400 })
+        .toBuffer();
+      console.log('creating image squeak' + buffer);
+      var squeak = new Squeak({
+        content: req.body.content,
+        owner: req.user._id,
+        attachment: buffer,
+        type: 1,
+      });
+    }
+
     await squeak.save();
-    res.status(201).redirect('/home');
+    res.status(201).redirect('/');
   } catch (e) {
     console.log(e);
     res.status(400).send();

@@ -32,6 +32,7 @@ const squeakSchema = new mongoose.Schema(
       },
     ],
     comments: [this],
+    type: { type: Number }, //type of the squeak, 0 for text , 1 for image
   },
   { timestamps: true }
 );

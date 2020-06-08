@@ -3,7 +3,7 @@
         <h5><strong>Home</strong></h5>
     </li>
     <div class="thickbottomborder">
-        <form action="/home" method="POST">
+        <form action="/home" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <div class="row">
                     <div class="col-2">
@@ -20,34 +20,32 @@
             <div class="row">
                 <div class="col-10">
                     <div class="row mt-1 ml-1">
-                        <form>
-                            <div class="col-2"></div>
-                            <div class="col-1 mx-1">
-                                <div class="form-group">
-                                    <input type="image" src="/icons/picture.svg" class="form-control-file squeakbar"
-                                        id="exampleFormControlFile1">
-                                </div>
+                        <div class="col-2"></div>
+                        <div class="col-1 mx-1">
+                            <div class="form-group">
+                                <label for="attachment">
+                                    <img src="/icons/picture.svg" class="squeakbar pointer" />
+                                </label>
+                                <input type="file" src="/icons/picture.svg" class="form-control-file d-none"
+                                    name="attachment" id="attachment">
                             </div>
-                            <div class="col-1 mx-1">
-                                <div class="form-group">
-                                    <input type="image" src="/icons/gif.svg" class="form-control-file squeakbar"
-                                        id="exampleFormControlFile1">
-                                </div>
+                        </div>
+                        <div class="col-1 mx-1">
+                            <div class="form-group">
+                                <input type="image" src="/icons/gif.svg" class="form-control-file squeakbar" id="gif">
                             </div>
-                            <div class="col-1 mx-1">
-                                <div class="form-group">
-                                    <input type="image" src="/icons/bar.svg" class="form-control-file squeakbar"
-                                        id="exampleFormControlFile1">
-                                </div>
+                        </div>
+                        <div class="col-1 mx-1">
+                            <div class="form-group">
+                                <input type="image" src="/icons/bar.svg" class="form-control-file squeakbar" id="poll">
                             </div>
-                            <div class="col-1 mx-1">
-                                <div class="form-group">
-                                    <input type="image" src="/icons/happy.svg" class="form-control-file squeakbar"
-                                        id="exampleFormControlFile1">
-                                </div>
+                        </div>
+                        <div class="col-1 mx-1">
+                            <div class="form-group">
+                                <input type="image" src="/icons/happy.svg" class="form-control-file squeakbar"
+                                    id="emoji">
                             </div>
-
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <div class="col-2">
