@@ -3,7 +3,7 @@
         <h5><strong>Home</strong></h5>
     </li>
     <div class="thickbottomborder">
-        <form>
+        <form action="/home" method="POST">
             <div class="form-group">
                 <div class="row">
                     <div class="col-2">
@@ -11,7 +11,7 @@
                             src="data:image/png;base64, {{user.avatar}}" alt="">
                     </div>
                     <div class="col-10">
-                        <textarea name="message" class="form-control border-0 noHover mt-2 pr-2 fill twitterfont"
+                        <textarea name="content" class="form-control border-0 noHover mt-2 pr-2 fill twitterfont"
                             placeholder="What's happening?"
                             oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
                     </div>

@@ -13,7 +13,7 @@ router.post('/home', auth, async (req, res) => {
 
   try {
     await squeak.save();
-    res.status(201).send(squeak);
+    res.status(201).redirect('/home');
   } catch (e) {
     console.log(e);
     res.status(400).send();
