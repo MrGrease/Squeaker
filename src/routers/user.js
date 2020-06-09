@@ -172,7 +172,10 @@ router.get('/user/:id', auth, async (req, res) => {
         squeak.attachment = squeak.attachment.toString('base64');
       }
     });
-    res.render('myprofilepage', { user: req.user, squeaks: req.user.squeaks });
+    res.render('myprofilepage', {
+      user: req.user,
+      squeaks: req.user.squeaks.reverse(),
+    });
   } catch (e) {
     console.log(e);
     res.status(404).send();
