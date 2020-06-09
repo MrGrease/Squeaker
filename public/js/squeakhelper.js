@@ -1,5 +1,3 @@
-console.log('Ready!');
-
 function copyURI(evt) {
   console.log('link copied!');
   evt.preventDefault();

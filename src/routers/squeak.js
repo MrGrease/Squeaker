@@ -109,7 +109,7 @@ router.post('/user/:id/status/:statid/like', auth, async (req, res) => {
       squeakToBeLiked.likes.push({ _id: userToLike.id });
     }
     await squeakToBeLiked.save();
-    res.status(200).send();
+    res.redirect(req.get('referer'));
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
@@ -118,7 +118,7 @@ router.post('/user/:id/status/:statid/like', auth, async (req, res) => {
 //resqueak a post
 router.post('/user/:id/status/:statid/resqueak', auth, async (req, res) => {
   try {
-    const userToResqueak = req.id;
+    const userToResqueak = req.user;
     const squeakToBeResqueaked = await Squeak.findById(req.params.statid);
 
     console.log('resqueaking!');
@@ -127,7 +127,7 @@ router.post('/user/:id/status/:statid/resqueak', auth, async (req, res) => {
     });
 
     await squeakToBeResqueaked.save();
-    res.status(200).send();
+    res.redirect(req.get('referer'));
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
