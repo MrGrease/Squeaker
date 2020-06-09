@@ -17,13 +17,6 @@ const app = express();
 app.set('view engine', 'hbs');
 app.set('views', viewsPath);
 hbs.registerPartials(partialsPath);
-hbs.registerHelper('extractType', function (type) {
-  if (type == 1) {
-    return true;
-  } else {
-    return false;
-  }
-});
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

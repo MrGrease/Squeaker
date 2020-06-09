@@ -17,11 +17,11 @@
                 <p class="d-inline text-secondary">@{{../user.handle}}</p>
                 <p class="d-inline text-secondary">{{this.createdAt}}</p>
                 <p class="content">{{this.content}}</p>
-
+                {{#if this.attachment}}
                 <div class="mr-3">
                     <img class=" headerimage" src="data:image/png;base64, {{this.attachment}}" alt="">
                 </div>
-
+                {{/if}}
             </div>
         </div>
         {{>squeakactions}}
