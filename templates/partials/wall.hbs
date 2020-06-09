@@ -24,7 +24,46 @@
                 {{/if}}
             </div>
         </div>
-        {{>squeakactions}}
+        <div class="row">
+            <div class="d-flex justify-content-around container mt-3">
+                <div class="col-1 mx-1">
+                    <form action="/home" method="GET">
+                        <div class="form-group">
+                            <label for="comment">
+                                <img src="/icons/comment.svg" class="squeakbar pointer" />
+                            </label>
+                            <input type="submit" class="squeakbar d-none" id="{{this._id}}comment" name="comment">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-1 mx-1">
+                    <form action="/user/{{../user._id}}/status/{{this._id}}/resqueak" method="POST">
+                        <div class="form-group">
+                            <label for="resqueak">
+                                <img src="/icons/resqueak.svg" class="squeakbar pointer" />
+                            </label>
+                            <input type="submit" class="squeakbar d-none" id="{{this._id}}resqueak" name="resqueak">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-1 mx-1">
+                    <form action="/user/{{../user._id}}/status/{{this._id}}/like" method="POST">
+                        <div class="form-group">
+                            <label for="like">
+                                <img src="/icons/heart.svg" class="squeakbar pointer" />
+                            </label>
+                            <input type="submit" class="squeakbar d-none" id="{{this._id}}like" name="like">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-1 mx-1">
+                    <div class="">
+                        <a href="/user/{{../user._id}}/status/{{this._id}}" onclick="copyURI(event)" name="share"><img
+                                src="/icons/share.svg" class="squeakbar pointer" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {{/each}}
