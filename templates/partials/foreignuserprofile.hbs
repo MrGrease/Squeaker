@@ -32,7 +32,9 @@
 
         </div>
         <div class="col">
-            <a class="btn btn-dark headerbutton" href="/user/{{user._id}}/edit">Follow</a>
+            <form method="POST" action="/user/{{user._id}}/follow">
+                <button class="btn btn-dark headerbutton">Follow</button>
+            </form>
         </div>
     </div>
     <div class="row">

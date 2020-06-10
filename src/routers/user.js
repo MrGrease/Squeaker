@@ -133,7 +133,6 @@ router.post('/user/:id/follow', auth, async (req, res) => {
     //
     //check if this relationship is already established
     if (alreadyfollowed || alreadyfollowing) {
-      console.log('Already exists');
       //filter out the current relationship
 
       userToBeFollowed.followers = userToBeFollowed.followers.filter(function (
@@ -148,15 +147,13 @@ router.post('/user/:id/follow', auth, async (req, res) => {
         return followed._id != userToBeFollowed.id;
       });
     } else {
-      console.log('does not exist');
       userToBeFollowed.followers.push({ _id: userToFollow.id });
       userToFollow.following.push({ _id: userToBeFollowed.id });
     }
 
-    console.log(userToBeFollowed.followers + ' and ' + userToFollow.following);
     await userToBeFollowed.save();
     await userToFollow.save();
-    res.status(200).send();
+    res.redirect('/user/' + req.params.id);
   } catch (e) {
     console.log(e);
     res.status(400).send(e);
