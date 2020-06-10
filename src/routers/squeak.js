@@ -50,15 +50,18 @@ router.post('/home', upload.single('attachment'), auth, async (req, res) => {
   }
 });
 ///Read a squeak
-router.get('/:handle/status/:id', async (req, res) => {
+router.get('/user/:handle/status/:id', auth, async (req, res) => {
   try {
-    const squeak = await Squeak.find({
-      _id: req.params.id,
-      owner: req.params.handle,
+    const squeak = await Squeak.findById(req.params.id);
+    const squeakowner = await User.findById(req.params.handle);
+    squeakowner.avatar = squeakowner.avatar.toString('base64');
+    squeakowner.header = squeakowner.header.toString('base64');
+    res.render('singlesqueakpage', {
+      user: squeakowner,
+      squeak: squeak,
     });
-    console.log(squeak);
-    res.status(200).send(squeak);
   } catch (e) {
+    console.log(e);
     res.status(404).send();
   }
 });

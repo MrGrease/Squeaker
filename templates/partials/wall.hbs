@@ -1,29 +1,32 @@
 {{#each user.squeaks}}
+
 <div class="border-bottom">
     <div class="form-group">
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-10">
-                <small class="text-secondary"></small>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <img class="img-fluid rounded-circle profilemini ml-3 mt-1"
-                    src="data:image/png;base64, {{../user.avatar}}" alt="">
-            </div>
-            <div class="col-10">
-                <h6 class="d-inline">{{../user.name}}</h6>
-                <p class="d-inline text-secondary">@{{../user.handle}}</p>
-                <p class="d-inline text-secondary">{{this.createdAt}}</p>
-                <p class="content">{{this.content}}</p>
-                {{#if this.attachment}}
-                <div class="mr-3">
-                    <img class=" headerimage" src="data:image/png;base64, {{this.attachment}}" alt="">
+        <a href="/user/{{../user._id}}/status/{{this._id}}/" class="tweethover">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <small class="text-secondary"></small>
                 </div>
-                {{/if}}
             </div>
-        </div>
+            <div class="row">
+                <div class="col-2">
+                    <img class="img-fluid rounded-circle profilemini ml-3 mt-1"
+                        src="data:image/png;base64, {{../user.avatar}}" alt="">
+                </div>
+                <div class="col-10">
+                    <h6 class="d-inline text-dark">{{../user.name}}</h6>
+                    <p class="d-inline text-secondary">@{{../user.handle}}</p>
+                    <p class="d-inline text-secondary">{{this.createdAt}}</p>
+                    <p class="content text-dark">{{this.content}}</p>
+                    {{#if this.attachment}}
+                    <div class="mr-3">
+                        <img class=" headerimage" src="data:image/png;base64, {{this.attachment}}" alt="">
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </a>
         <div class="row">
             <div class="d-flex justify-content-around container mt-3">
                 <div class="col-1 mx-1">
@@ -60,4 +63,6 @@
         </div>
     </div>
 </div>
+
+
 {{/each}}
