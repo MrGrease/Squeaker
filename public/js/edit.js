@@ -7,7 +7,7 @@ function deleteProf() {
 
   const xhr = new XMLHttpRequest();
 
-  xhr.open('DELETE', '/deleteprofile', true);
+  xhr.open('DELETE', '/user/deleteprofile', true);
 
   xhr.onload = function () {
     if (this.status == 200) {

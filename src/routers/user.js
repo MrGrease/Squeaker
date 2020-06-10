@@ -167,15 +167,24 @@ router.get('/user/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('squeaks').populate('comments').execPopulate();
-    req.user.squeaks.forEach((squeak) => {
+    user.squeaks.forEach((squeak) => {
       if (squeak.type == 1) {
         squeak.attachment = squeak.attachment.toString('base64');
       }
     });
-    res.render('myprofilepage', {
-      user: req.user,
-      squeaks: req.user.squeaks.reverse(),
-    });
+    user.avatar = user.avatar.toString('base64');
+    user.header = user.header.toString('base64');
+    if (JSON.stringify(user._id) == JSON.stringify(req.user._id)) {
+      res.render('myprofilepage', {
+        user: user,
+        squeaks: req.user.squeaks.reverse(),
+      });
+    } else {
+      res.render('profilepage', {
+        user: user,
+        squeaks: req.user.squeaks.reverse(),
+      });
+    }
   } catch (e) {
     console.log(e);
     res.status(404).send();
@@ -283,7 +292,7 @@ router.post(
         }
       });
       await user.save();
-      res.redirect('/' + user._id);
+      res.redirect('/user/' + user._id);
     } catch (e) {
       console.log(e);
       res.status(400).send(e);

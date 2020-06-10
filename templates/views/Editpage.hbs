@@ -17,7 +17,7 @@
             <img src="/icons/rat.svg" class="mx-auto d-block mb-3" width="40em" height="40em">
             <h3 class="text-center my-2">Edit your Squeaker</h3>
             <p id="warning"></p>
-            <form method="POST" action="/{{user.id}}/edit" enctype="multipart/form-data">
+            <form method="POST" action="/user/{{user.id}}/edit" enctype="multipart/form-data">
                 <label for="handle">Handle</label>
                 <input type="text" name="handle" id="handle" class="form-control w-50 mx-auto"
                     placeholder="{{user.handle}}" />
