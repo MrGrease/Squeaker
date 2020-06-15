@@ -17,6 +17,7 @@ const auth = async (req, res, next) => {
       throw new Error();
     }
 
+    console.log('Currently logged in as ' + user.handle);
     req.token = token;
     req.user = user;
     req.user.CA = req.user.createdAt.toJSON().substring(0, 4);

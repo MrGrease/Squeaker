@@ -176,11 +176,12 @@ router.get('/user/:id', auth, async (req, res) => {
       res.render('myprofilepage', {
         user: user,
         squeaks: req.user.squeaks.reverse(),
+        currentuser: req.user,
       });
     } else {
       var relation = 'Follow';
 
-      if (req.user.followers.some((document) => document.equals(user._id))) {
+      if (req.user.following.some((document) => document.equals(user._id))) {
         console.log('You follow this user!');
         relation = 'Unfollow';
       } else {
@@ -191,6 +192,7 @@ router.get('/user/:id', auth, async (req, res) => {
         user: user,
         squeaks: user.squeaks.reverse(),
         relation: relation,
+        currentuser: req.user,
       });
     }
   } catch (e) {
@@ -211,6 +213,7 @@ router.get('/user/:id/edit', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
   res.render('homepage', {
     user: req.user,
+    currentuser: req.user,
   });
 });
 //Get likes
