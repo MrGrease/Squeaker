@@ -171,15 +171,26 @@ router.get('/user/:id', auth, async (req, res) => {
     });
     user.avatar = user.avatar.toString('base64');
     user.header = user.header.toString('base64');
+
     if (JSON.stringify(user._id) == JSON.stringify(req.user._id)) {
       res.render('myprofilepage', {
         user: user,
         squeaks: req.user.squeaks.reverse(),
       });
     } else {
+      var relation = 'Follow';
+
+      if (req.user.followers.some((document) => document.equals(user._id))) {
+        console.log('You follow this user!');
+        relation = 'Unfollow';
+      } else {
+        console.log('You do NOT follow this user' + user._id);
+      }
+
       res.render('profilepage', {
         user: user,
-        squeaks: req.user.squeaks.reverse(),
+        squeaks: user.squeaks.reverse(),
+        relation: relation,
       });
     }
   } catch (e) {
