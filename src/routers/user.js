@@ -209,40 +209,70 @@ router.get('/user/:id/edit', auth, async (req, res) => {
     res.status(404).send();
   }
 });
-//Get Home
+//Get Home // wall
 router.get('/', auth, async (req, res) => {
+  //Find the currently logged in user and populate its comments and squeaks
   const user = await User.findById(req.user.id);
-  await user.populate('squeaks').populate('comments').execPopulate();
+  await user
+    .populate('squeaks')
+    .populate('comments')
+    .populate('resqueaks')
+    .execPopulate();
 
+  console.log(user.resqueaks);
   //declare the wall
   var wall = [];
-
+  //for each user squeak insert its required data and push it to the wall
   for (y = 0; y < user.squeaks.length; y++) {
     user.squeaks[y].name = user.name;
     user.squeaks[y].handle = user.handle;
     user.squeaks[y].avatar = user.avatar;
     wall.push(user.squeaks[y]);
   }
+  //for each resqueak // by us
+  for (y = 0; y < user.resqueaks.length; y++) {
+    var resqueaker = await User.findById(user.resqueaks[y].owner);
+    user.resqueaks[y].name = resqueaker.name;
+    user.resqueaks[y].handle = resqueaker.handle;
+    user.resqueaks[y].avatar = resqueaker.avatar;
+    user.resqueaks[y].prepend = 'Resqueaked by @' + user.handle;
+    wall.push(user.resqueaks[y]);
+  }
 
   //Add the tweets of people you follow
   for (i = 0; i < user.following.length; i++) {
+    //find followers and populate them as well
     const person = await User.findById(user.following[i]);
-    await person.populate('squeaks').populate('comments').execPopulate();
+    await person
+      .populate('squeaks')
+      .populate('comments')
+      .populate('resqueaks')
+      .execPopulate();
+    //add the required data for each of their squeaks as well
     for (y = 0; y < person.squeaks.length; y++) {
       person.squeaks[y].name = person.name;
       person.squeaks[y].handle = person.handle;
       person.squeaks[y].avatar = person.avatar;
+      //push each squeak to the wall
       wall.push(person.squeaks[y]);
-      console.log(new Date(person.squeaks[y].createdAt));
-      console.log(person.squeaks[y].createdAt);
+    }
+    //for each resqueak
+    for (y = 0; y < person.resqueaks.length; y++) {
+      var resqueaker = await User.findById(person.resqueaks[y].owner);
+      person.resqueaks[y].name = resqueaker.name;
+      person.resqueaks[y].handle = resqueaker.handle;
+      person.resqueaks[y].avatar = resqueaker.avatar;
+      person.resqueaks[y].prepend = 'Resqueaked by @' + person.handle;
+      wall.push(person.resqueaks[y]);
     }
   }
-
+  //sort each squeak according to date
   wall.sort(function (a, b) {
     return new Date(a.createdAt) - new Date(b.createdAt);
   });
-
+  //reverse the order to so it displays correctly
   wall.reverse();
+  //render the homepage
   res.render('homepage', {
     user: user,
     currentuser: req.user,
