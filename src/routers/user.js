@@ -233,10 +233,16 @@ router.get('/', auth, async (req, res) => {
       person.squeaks[y].handle = person.handle;
       person.squeaks[y].avatar = person.avatar;
       wall.push(person.squeaks[y]);
+      console.log(new Date(person.squeaks[y].createdAt));
+      console.log(person.squeaks[y].createdAt);
     }
   }
-  console.log(wall);
 
+  wall.sort(function (a, b) {
+    return new Date(a.createdAt) - new Date(b.createdAt);
+  });
+
+  wall.reverse();
   res.render('homepage', {
     user: user,
     currentuser: req.user,
