@@ -1,0 +1,68 @@
+{{#each wall}}
+
+<div class="border-bottom">
+    <div class="form-group">
+        <a href="/user/{{this.owner}}/status/{{this._id}}/" class="tweethover">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <small class="text-secondary"></small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <img class="img-fluid rounded-circle profilemini ml-3 mt-1"
+                        src="data:image/png;base64, {{this.avatar}}" alt="">
+                </div>
+                <div class="col-10">
+                    <h6 class="d-inline text-dark">{{this.name}}</h6>
+                    <p class="d-inline text-secondary">@{{this.handle}}</p>
+                    <p class="d-inline text-secondary">{{this.createdAt}}</p>
+                    <p class="content text-dark">{{this.content}}</p>
+                    {{#if this.attachment}}
+                    <div class="mr-3">
+                        <img class=" headerimage" src="data:image/png;base64, {{this.attachment}}" alt="">
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </a>
+        <div class="row">
+            <div class="d-flex justify-content-around container mt-3">
+                <div class="col-1 mx-1">
+                    <form action="/home" method="GET">
+                        <div class="form-group">
+                            <input type="image" class="squeakbar" src="/icons/comment.svg" id="{{this._id}}comment"
+                                name="comment">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-1 mx-1">
+                    <form action="/user/{{this.owner._id}}/status/{{this._id}}/resqueak" method="POST">
+                        <div class="form-group">
+                            <input type="image" class="squeakbar" src="/icons/resqueak.svg" id="{{this._id}}resqueak"
+                                name="resqueak">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-1 mx-1">
+                    <form action="/user/{{this.owner._id}}/status/{{this._id}}/like" method="POST">
+                        <div class="form-group">
+                            <input type="image" class="squeakbar " src="/icons/heart.svg" id="{{this._id}}like"
+                                name="like">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-1 mx-1">
+                    <div class="">
+                        <a href="/user/{{this.owner._id}}/status/{{this._id}}" onclick="copyURI(event)"
+                            name="share"><img src="/icons/share.svg" class="squeakbar pointer" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{/each}}

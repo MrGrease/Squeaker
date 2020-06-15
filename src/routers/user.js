@@ -211,9 +211,36 @@ router.get('/user/:id/edit', auth, async (req, res) => {
 });
 //Get Home
 router.get('/', auth, async (req, res) => {
+  const user = await User.findById(req.user.id);
+  await user.populate('squeaks').populate('comments').execPopulate();
+
+  //declare the wall
+  var wall = [];
+
+  for (y = 0; y < user.squeaks.length; y++) {
+    user.squeaks[y].name = user.name;
+    user.squeaks[y].handle = user.handle;
+    user.squeaks[y].avatar = user.avatar;
+    wall.push(user.squeaks[y]);
+  }
+
+  //Add the tweets of people you follow
+  for (i = 0; i < user.following.length; i++) {
+    const person = await User.findById(user.following[i]);
+    await person.populate('squeaks').populate('comments').execPopulate();
+    for (y = 0; y < person.squeaks.length; y++) {
+      person.squeaks[y].name = person.name;
+      person.squeaks[y].handle = person.handle;
+      person.squeaks[y].avatar = person.avatar;
+      wall.push(person.squeaks[y]);
+    }
+  }
+  console.log(wall);
+
   res.render('homepage', {
-    user: req.user,
+    user: user,
     currentuser: req.user,
+    wall: wall,
   });
 });
 //Get likes
