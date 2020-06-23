@@ -1,27 +1,32 @@
 <div class="row">
     <div class="d-flex justify-content-around container mt-3">
         <div class="col-1 mx-1">
-            <div class="form-group">
-                <input type="image" src="/icons/comment.svg" class="form-control-file squeakbar"
-                    id="exampleFormControlFile1">
-            </div>
+            <form action="/home" method="GET">
+                <div class="form-group">
+                    <input type="image" class="squeakbar" src="/icons/comment.svg" id="{{squeak._id}}comment"
+                        name="comment">
+                </div>
+            </form>
         </div>
         <div class="col-1 mx-1">
-            <div class="form-group">
-                <input type="image" src="/icons/resqueak.svg" class="form-control-file squeakbar"
-                    id="exampleFormControlFile1">
-            </div>
+            <form action="/user/{{squeak.owner._id}}/status/{{squeak._id}}/resqueak" method="POST">
+                <div class="form-group">
+                    <input type="image" class="squeakbar" src="/icons/resqueak.svg" id="{{squeak._id}}resqueak"
+                        name="resqueak">
+                </div>
+            </form>
         </div>
         <div class="col-1 mx-1">
-            <div class="form-group">
-                <input type="image" src="/icons/heart.svg" class="form-control-file squeakbar"
-                    id="exampleFormControlFile1">
-            </div>
+            <form action="/user/{{squeak.owner._id}}/status/{{squeak._id}}/like" method="POST">
+                <div class="form-group">
+                    <input type="image" class="squeakbar " src="/icons/heart.svg" id="{{squeak._id}}like" name="like">
+                </div>
+            </form>
         </div>
         <div class="col-1 mx-1">
-            <div class="form-group">
-                <input type="image" src="/icons/share.svg" class="form-control-file squeakbar"
-                    id="exampleFormControlFile1">
+            <div class="d-flex">
+                <a href="/user/{{squeak.owner._id}}/status/{{squeak._id}}" onclick="copyURI(event)" name="share"><img
+                        src="/icons/share.svg" class="squeakbar pointer" /></a>
             </div>
         </div>
     </div>
