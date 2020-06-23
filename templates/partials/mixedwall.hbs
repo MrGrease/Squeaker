@@ -37,28 +37,37 @@
         <div class="row">
             <div class="d-flex justify-content-around container mt-3">
                 <div class="col-1 mx-1">
-                    <form action="/home" method="GET">
-                        <div class="form-group">
-                            <input type="image" class="squeakbar" src="/icons/comment.svg" id="{{this._id}}comment"
-                                name="comment">
-                        </div>
-                    </form>
+                    <div class="d-flex">
+                        <p class="mx-1">{{this.comments.length}}</p>
+                        <form action="/home" method="GET">
+                            <div class="form-group">
+                                <input type="image" class="squeakbar" src="/icons/comment.svg" id="{{this._id}}comment"
+                                    name="comment">
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-1 mx-1">
-                    <form action="/user/{{this.owner._id}}/status/{{this._id}}/resqueak" method="POST">
-                        <div class="form-group">
-                            <input type="image" class="squeakbar" src="/icons/resqueak.svg" id="{{this._id}}resqueak"
-                                name="resqueak">
-                        </div>
-                    </form>
+                    <div class="d-flex">
+                        <p class="mx-1">{{this.resqueaks.length}}</p>
+                        <form action="/user/{{this.owner._id}}/status/{{this._id}}/resqueak" method="POST">
+                            <div class="form-group">
+                                <input type="image" class="squeakbar" src="/icons/resqueak.svg"
+                                    id="{{this._id}}resqueak" name="resqueak">
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-1 mx-1">
-                    <form action="/user/{{this.owner._id}}/status/{{this._id}}/like" method="POST">
-                        <div class="form-group">
-                            <input type="image" class="squeakbar " src="/icons/heart.svg" id="{{this._id}}like"
-                                name="like">
-                        </div>
-                    </form>
+                    <div class="d-flex">
+                        <p class="mx-1">{{this.likes.length}}</p>
+                        <form action="/user/{{this.owner._id}}/status/{{this._id}}/like" method="POST">
+                            <div class="form-group">
+                                <input type="image" class="squeakbar " src="/icons/heart.svg" id="{{this._id}}like"
+                                    name="like">
+                            </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="col-1 mx-1">
                     <div class="">
