@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
+const who = require('../middleware/whotofollow');
 const multer = require('multer');
 const sharp = require('sharp');
 const upload = multer({
@@ -210,7 +211,7 @@ router.get('/user/:id/edit', auth, async (req, res) => {
   }
 });
 //Get Home // wall
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, who, async (req, res) => {
   //Find the currently logged in user and populate its comments and squeaks
   const user = await User.findById(req.user.id);
   await user
