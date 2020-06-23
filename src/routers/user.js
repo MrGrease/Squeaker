@@ -278,6 +278,7 @@ router.get('/', auth, who, async (req, res) => {
     user: user,
     currentuser: req.user,
     wall: wall,
+    whotofollow: req.whotofollow,
   });
 });
 //Get likes
