@@ -15,7 +15,7 @@ const who = async (req, res, next) => {
         User.findOne()
           .skip(random)
           .exec(function (err, result) {
-            if (req.user._id != result._id) {
+            if (req.user._id.toString() != result._id.toString()) {
               console.log(
                 'Building who to follow array for' +
                   req.user._id +

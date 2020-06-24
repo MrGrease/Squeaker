@@ -220,7 +220,6 @@ router.get('/', auth, who, async (req, res) => {
     .populate('resqueaks')
     .execPopulate();
 
-  console.log(user.resqueaks);
   //declare the wall
   var wall = [];
   //for each user squeak insert its required data and push it to the wall
