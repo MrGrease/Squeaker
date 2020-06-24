@@ -161,7 +161,7 @@ router.post('/user/:id/follow', auth, async (req, res) => {
   }
 });
 //Get profile
-router.get('/user/:id', auth, async (req, res) => {
+router.get('/user/:id', auth, who, async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     await user.populate('squeaks').populate('comments').execPopulate();
@@ -178,6 +178,7 @@ router.get('/user/:id', auth, async (req, res) => {
         user: user,
         squeaks: req.user.squeaks.reverse(),
         currentuser: req.user,
+        whotofollow: req.whotofollow,
       });
     } else {
       var relation = 'Follow';
@@ -194,6 +195,7 @@ router.get('/user/:id', auth, async (req, res) => {
         squeaks: user.squeaks.reverse(),
         relation: relation,
         currentuser: req.user,
+        whotofollow: req.whotofollow,
       });
     }
   } catch (e) {

@@ -3,8 +3,10 @@ const Squeak = require('../models/squeak');
 const User = require('../models/user');
 const router = new express.Router();
 const auth = require('../middleware/auth');
+const who = require('../middleware/whotofollow');
 const multer = require('multer');
 const sharp = require('sharp');
+
 const upload = multer({
   limits: {
     fileSize: 1000000,
@@ -50,7 +52,7 @@ router.post('/home', upload.single('attachment'), auth, async (req, res) => {
   }
 });
 ///Read a squeak
-router.get('/user/:handle/status/:id', auth, async (req, res) => {
+router.get('/user/:handle/status/:id', auth, who, async (req, res) => {
   try {
     const squeak = await Squeak.findById(req.params.id);
     const squeakowner = await User.findById(req.params.handle);
@@ -59,6 +61,7 @@ router.get('/user/:handle/status/:id', auth, async (req, res) => {
     res.render('singlesqueakpage', {
       user: squeakowner,
       squeak: squeak,
+      whotofollow: req.whotofollow,
     });
   } catch (e) {
     console.log(e);
