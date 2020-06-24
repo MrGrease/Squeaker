@@ -17,12 +17,29 @@ const who = async (req, res, next) => {
           .exec(function (err, result) {
             if (req.user._id.toString() != result._id.toString()) {
               console.log(
-                'Building who to follow array for' +
+                'Building who to follow array for ' +
                   req.user._id +
-                  'and adding' +
+                  ' and adding ' +
                   result._id
               );
-              req.whotofollow.push(result);
+              if (
+                req.whotofollow.some(
+                  (who) => who._id.toString() == result._id.toString()
+                )
+              ) {
+                console.log('already in list');
+              } else {
+                if (
+                  req.user.following.some(
+                    (follow) => follow._id.toString() == result._id.toString()
+                  )
+                ) {
+                  console.log('already following this user');
+                } else {
+                  console.log(req.user.following);
+                  req.whotofollow.push(result);
+                }
+              }
             } else {
               console.log('Skipping self for who to follow list');
             }
